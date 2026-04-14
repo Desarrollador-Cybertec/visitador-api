@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('razon_social');
+            $table->string('nit')->unique();
             $table->string('email');
             $table->string('phone_number');
             $table->timestamps();
