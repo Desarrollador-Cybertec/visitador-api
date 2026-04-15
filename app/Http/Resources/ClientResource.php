@@ -11,8 +11,8 @@ class ClientResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
             'razon_social' => $this->razon_social,
+            'nit' => $this->nit,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'farms' => FarmResource::collection($this->whenLoaded('farms')),
