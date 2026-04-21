@@ -29,6 +29,8 @@ class Farm extends Model
         'staff_availability',
         'has_storage_warehouse',
         'how_many_warehouses',
+        'total_galpones',
+        'galpones_a_cotizar',
     ];
 
     protected function casts(): array

@@ -7,12 +7,15 @@ use App\Http\Requests\UpdateFarmContactRequest;
 use App\Http\Resources\FarmContactResource;
 use App\Models\FarmContact;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class FarmContactController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $contacts = FarmContact::with('farm')->paginate(15);
+        $contacts = FarmContact::with('farm')
+            ->when($request->farm_id, fn($q) => $q->where('farm_id', $request->farm_id))
+            ->paginate(15);
 
         return FarmContactResource::collection($contacts)->response();
     }
