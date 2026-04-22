@@ -65,5 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Projects & progress
     Route::apiResource('projects', ProjectController::class);
     Route::get('projects/{project}/structures', [StructureController::class, 'indexByProject']);
+    Route::post('projects/{project}/structures', [StructureController::class, 'syncProjectStructures']);
+    Route::delete('projects/{project}/structures/{structure}', [StructureController::class, 'detachFromProject']);
     Route::apiResource('projects.progress-reports', ProgressReportController::class)->shallow();
 });

@@ -29,6 +29,27 @@ class StructureController extends Controller
         return response()->json($structures);
     }
 
+    public function syncProjectStructures(Request $request, Project $project): JsonResponse
+    {
+        $validated = $request->validate([
+            'structure_ids' => 'required|array',
+            'structure_ids.*' => 'integer|exists:structures,id',
+        ]);
+
+        $project->structures()->sync($validated['structure_ids']);
+
+        $structures = $project->structures()->with(['parent', 'children'])->orderBy('sort_order')->orderBy('name')->get();
+
+        return response()->json($structures);
+    }
+
+    public function detachFromProject(Project $project, Structure $structure): JsonResponse
+    {
+        $project->structures()->detach($structure->id);
+
+        return response()->json(null, 204);
+    }
+
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
