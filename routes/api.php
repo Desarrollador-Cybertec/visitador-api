@@ -64,5 +64,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Projects & progress
     Route::apiResource('projects', ProjectController::class);
+    Route::get('projects/{project}/structures', [StructureController::class, 'indexByProject']);
     Route::apiResource('projects.progress-reports', ProgressReportController::class)->shallow();
 });

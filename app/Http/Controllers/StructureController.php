@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Structure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,13 @@ class StructureController extends Controller
             ->orderBy('name');
 
         return response()->json($query->get());
+    }
+
+    public function indexByProject(Project $project): JsonResponse
+    {
+        $structures = $project->structures()->with(['parent', 'children'])->orderBy('sort_order')->orderBy('name')->get();
+
+        return response()->json($structures);
     }
 
     public function store(Request $request): JsonResponse
