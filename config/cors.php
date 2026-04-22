@@ -20,6 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
+        'https://visit.isumma.cyberteconline.com',
         'http://localhost:5173',
         'http://localhost:3000',
         'http://localhost:8080',
